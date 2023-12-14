@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Dashboard</title>
+</head>
+<body>
+    <h1>Music Dashboard</h1>
+    <div>
+        <h2>Top 20 Tracks</h2>
+        <ul id="top20tracks"></ul>
+    </div>
+    <div>
+        <h2>Top 10 Songs of Taylor Swift</h2>
+        <ul id="top10songs"></ul>
+    </div>
+
+    <script>
+        // Fetch the top 20 tracks
+        fetch('/top20')
+            .then(response => response.json())
+            .then(data => {
+                const list = document.getElementById('top20tracks');
+                data.forEach(track => {
+                    const item = document.createElement('li');
+                    item.textContent = `${track.artist} - ${track.title}`;
+                    list.appendChild(item);
+                });
+            })
+            .catch(error => console.error('Error:', error));
+
+        // Fetch the top 10 songs of an artist
+        fetch('/top10artistmusic')
+            .then(response => response.json())
+            .then(data => {
+                const list = document.getElementById('top10songs');
+                data.forEach(song => {
+                    const item = document.createElement('li');
+                    item.textContent = `${song.artist} - ${song.title}`;
+                    list.appendChild(item);
+                });
+            })
+            .catch(error => console.error('Error:', error));
+    </script>
+</body>
+</html>
